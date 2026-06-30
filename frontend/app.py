@@ -36,3 +36,28 @@ df.drop(columns=["Dates"], inplace=True)
 with col1:
     fig = px.line(df)
     st.plotly_chart(fig, use_container_width=True)
+
+multi = '''
+
+## Theta Decay Visualizer
+
+**Theta decay** often called "time decay" is the relentless enemy of option buyers and best friend of option sellers.
+
+As time passes, the **extrinsic value** (the part of an option's price not explained by intrinsic value) naturally erodes, accelerating dramatically in the final weeks and days before expiration. This phenomenon is **exponential**.
+
+### How Our Model Works
+
+Our visualizer uses a **square-root decay model**, which closely mirrors real-world theta behavior:
+
+- The remaining extrinsic value follows a **√(remaining time)** curve
+- Decay is slow at first, then **explodes** as expiration approaches
+
+### What You're Seeing
+
+- **Blue Line**: The projected remaining extrinsic value over time
+- **Steep drop near the end**: The aggressive acceleration of theta decay in the final days
+- **Daily Rate of Decay**: How much extrinsic value is expected to vanish each day
+
+'''
+
+st.markdown(multi)

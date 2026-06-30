@@ -1,0 +1,12 @@
+[theme]
+# Primary accent color for interactive elements like sliders and checkboxes
+primaryColor = "#5f7fcf"
+
+# The main background color of your application
+backgroundColor = "#0E1117"
+
+# Background color used for the sidebar and input widgets
+secondaryBackgroundColor = "#262730"
+
+# Main text color
+textColor = "#FAFAFA"
