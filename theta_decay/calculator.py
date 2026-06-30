@@ -1,14 +1,11 @@
 import numpy as np
-import streamlit as st
-import plotly.express as px
-from datetime import datetime, timedelta
+import pandas as pd
 import math
+from datetime import datetime, timedelta
 
-def get_data():
-    extrinsic_value = float(st.text_input("Extrinsic Value", value="10"))
-    dte = st.slider("Days to Expiry", min_value=1, max_value=365, value=30)
-    time_passed = st.slider("Days Passed", min_value=0, max_value=dte, value=0)
-
+def calculate_theta_decay(extrinsic_value, dte, time_passed):
+    """All your calculation logic"""
+    
     dates = []
     now = datetime.now().replace(minute = 0, second = 0, microsecond = 0)
     exp = (now + timedelta(hours= dte * 24)).replace(hour = 16, minute = 0, second = 0, microsecond = 0)
@@ -17,14 +14,17 @@ def get_data():
     while current_time <= exp:
         dates.append(current_time)
         current_time += timedelta(hours=1)
-        #print(current_time)
 
     # Full time range (0 to expiry)
     time_range = np.linspace(0, dte, hours)
 
-    theta = -extrinsic_value / (2 * dte * np.sqrt(1 - time_passed/dte))
-
+    # Square root decay model
     theta_decay = np.sqrt((dte - time_range) / dte) * extrinsic_value
 
-    return theta_decay, time_range, theta
+    # Current value
+    current_value = np.sqrt((dte - time_passed) / dte) * extrinsic_value
 
+    # Estimate theta
+    theta = -extrinsic_value / (2 * dte * np.sqrt(1 - time_passed/dte))
+
+    return dates, theta_decay, current_value, theta
