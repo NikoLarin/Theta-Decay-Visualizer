@@ -3,8 +3,18 @@ import pandas as pd
 import math
 from datetime import datetime, timedelta
 
-def calculate_theta_decay(extrinsic_value, dte, time_passed):
-    """All calculation logic"""
+def calculate_theta_decay(extrinsic_value :float, dte :str, time_passed :int):
+    """All calculation logic
+    This will create variables for
+        now - the current date and hour, setting the minutes/seconds to 0
+        exp - the expiration date and hour, setting the miunites/seconds to 0
+        hours - the amount of hours until expiry
+        dates - every date and hour from now until expiry
+    
+        theta_decay - create exponential decay values
+        current_value - extrinsic value - theta_decay
+        
+    """
     
     dates = []
     now = datetime.now().replace(minute = 0, second = 0, microsecond = 0) # create var for current hour
