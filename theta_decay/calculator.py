@@ -4,14 +4,16 @@ import math
 from datetime import datetime, timedelta
 
 def calculate_theta_decay(extrinsic_value, dte, time_passed):
-    """All your calculation logic"""
+    """All calculation logic"""
     
     dates = []
-    now = datetime.now().replace(minute = 0, second = 0, microsecond = 0)
-    exp = (now + timedelta(hours= dte * 24)).replace(hour = 16, minute = 0, second = 0, microsecond = 0)
-    hours = math.ceil((exp - now).total_seconds() / 3600)
-    current_time = now
-    while current_time <= exp:
+    now = datetime.now().replace(minute = 0, second = 0, microsecond = 0) # create var for current hour
+    exp = (now + timedelta(hours= dte * 24)).replace(hour = 16, minute = 0, second = 0, microsecond = 0) # create var for expiration date
+    hours = math.ceil((exp - now).total_seconds() / 3600) # find amount of hours until expiry
+    
+    current_time = now # stage current_time for loop
+    
+    while current_time <= exp: # loop increments time by hour until expiry hour is met
         dates.append(current_time)
         current_time += timedelta(hours=1)
 
